@@ -1,30 +1,54 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+enum SiNoButtonsGroupOptions {
+  SI = 'si',
+  NO = 'no',
+}
 
 @Component({
   selector: 'app-si-no-buttons-group',
   templateUrl: './si-no-buttons-group.component.html',
-  styleUrls: ['./si-no-buttons-group.component.scss']
+  styleUrls: ['./si-no-buttons-group.component.scss'],
+  providers: [
+    {
+      provide:NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => SiNoButtonsGroupComponent),
+    },
+  ],
 })
-export class SiNoButtonsGroupComponent implements OnInit {
+export class SiNoButtonsGroupComponent implements OnInit, ControlValueAccessor {
   @Input() value = '';
   @Input() label = '';
 
   @Output() valueChange = new EventEmitter<string>();
 
-  options= SiNoButtonsGroupOptions;
+  options = SiNoButtonsGroupOptions;
 
+  onChange = (value: string): void => {};
+  onTouched = () => {};
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {}
 
-    activate(value: string): void {
-       this.value = value;
-       this.valueChange.emit(this.value);
-    }
+  writeValue(value: string): void {
+      this.value = value;
+      this.onChange(value);
+      this.valueChange.emit(this.value);
   }
 
-  enum SiNoButtonsGroupOptions{
-    SI = 'si',
-    NO = 'no',
+  registerOnChange(fn: any): void {
+      this.onChange = fn;
   }
+
+  registerOnTouched(fn: any): void {
+      this.onTouched= fn;
+  }
+
+  activate(value: string): void {
+    this.writeValue(value);
+  }
+}
+
