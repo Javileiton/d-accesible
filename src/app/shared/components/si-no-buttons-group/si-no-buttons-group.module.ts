@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SiNoButtonsGroupComponent } from './si-no-buttons-group.component';
+import { KeyboardManagerModule } from '../../directives/keyboard-manager/keyboard-manager.module';
 
 
 
@@ -9,7 +10,8 @@ import { SiNoButtonsGroupComponent } from './si-no-buttons-group.component';
     SiNoButtonsGroupComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    KeyboardManagerModule
   ],
   exports: [
     SiNoButtonsGroupComponent
