@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { SiNoButtonsGroupComponent } from './shared/components/si-no-buttons-group/si-no-buttons-group.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DisableControlModule } from './shared/directives/disable-control/disable-control.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    DisableControlModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
